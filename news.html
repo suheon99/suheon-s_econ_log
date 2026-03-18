@@ -4,54 +4,62 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>뉴스 읽기 — 수헌의 경제 공부</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    :root { --bg: #f5f0e8; --paper: #fdfaf4; --ink: #1a1a18; --ink-light: #5a5a52; --accent: #c8401a; --border: #d4ccbc; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--ink); font-family: 'Noto Serif KR', serif; min-height: 100vh; }
+    body {
+      min-height: 100vh; font-family: 'Noto Sans KR', sans-serif;
+      background: linear-gradient(135deg, #a8d8f0 0%, #c8ecd4 30%, #a0d4f0 55%, #b8e8c8 80%, #90c8e8 100%);
+      background-attachment: fixed; overflow-x: hidden;
+    }
+    body::before, body::after { content: ''; position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0; pointer-events: none; }
+    body::before { width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,255,255,0.55) 0%, transparent 70%); top: -100px; left: -100px; animation: orb1 8s ease-in-out infinite alternate; }
+    body::after { width: 400px; height: 400px; background: radial-gradient(circle, rgba(160,230,200,0.45) 0%, transparent 70%); bottom: -80px; right: -80px; animation: orb2 10s ease-in-out infinite alternate; }
+    @keyframes orb1 { from { transform: translate(0,0); } to { transform: translate(60px,80px); } }
+    @keyframes orb2 { from { transform: translate(0,0); } to { transform: translate(-50px,-60px); } }
 
-    #lock-screen {
-      position: fixed; inset: 0; background: var(--bg);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 999; flex-direction: column; gap: 2rem;
-    }
-    #lock-screen h1 { font-size: 1.4rem; letter-spacing: 0.08em; color: var(--ink-light); font-weight: 400; }
-    .lock-box { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
-    #lock-screen input {
-      border: 1.5px solid var(--border); background: var(--paper);
-      padding: 0.75rem 1.2rem; font-size: 1rem; font-family: 'DM Mono', monospace;
-      outline: none; width: 220px; text-align: center; letter-spacing: 0.2em; color: var(--ink); border-radius: 2px;
-    }
-    #lock-screen input:focus { border-color: var(--accent); }
-    #lock-screen button {
-      background: var(--accent); color: #fff; border: none;
-      padding: 0.65rem 2rem; font-size: 0.9rem; cursor: pointer;
-      font-family: 'Noto Serif KR', serif; border-radius: 2px; width: 220px;
-    }
-    #lock-screen button:hover { background: #a83315; }
-    #lock-error { color: var(--accent); font-size: 0.8rem; font-family: 'DM Mono', monospace; min-height: 1rem; }
+    .drops { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .drop { position: absolute; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.7), rgba(160,220,255,0.15)); border: 1px solid rgba(255,255,255,0.5); animation: floatDrop linear infinite; }
+    @keyframes floatDrop { 0% { transform: translateY(110vh) scale(0.8) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 0.6; } 100% { transform: translateY(-20vh) scale(1.1) rotate(20deg); opacity: 0; } }
 
-    #app { display: none; }
-    header { border-bottom: 1.5px solid var(--border); padding: 1.2rem 2rem; background: var(--paper); display: flex; align-items: center; gap: 1rem; }
-    .back-btn { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--ink-light); text-decoration: none; border: 1px solid var(--border); padding: 0.3rem 0.7rem; border-radius: 2px; }
-    .back-btn:hover { border-color: var(--accent); color: var(--accent); }
-    header h1 { font-size: 1.1rem; font-weight: 700; }
-    header h1 span { color: var(--accent); }
+    #lock-screen { position: fixed; inset: 0; z-index: 999; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+    .lock-card { background: rgba(255,255,255,0.35); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1.5px solid rgba(255,255,255,0.7); border-radius: 24px; padding: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; box-shadow: 0 8px 40px rgba(100,180,230,0.25), inset 0 1px 0 rgba(255,255,255,0.8); min-width: 280px; }
+    .lock-card h1 { font-family: 'Nunito', sans-serif; font-size: 1.3rem; font-weight: 800; color: #1a5a7a; }
+    .lock-card input { width: 100%; border: 1.5px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.5); padding: 0.75rem 1rem; font-size: 1rem; font-family: 'Nunito', sans-serif; letter-spacing: 0.2em; text-align: center; border-radius: 12px; outline: none; color: #1a4a6a; }
+    .lock-card input:focus { border-color: rgba(100,200,240,0.8); }
+    .lock-card button { width: 100%; background: linear-gradient(180deg, rgba(120,210,250,0.9) 0%, rgba(60,160,220,0.9) 100%); border: 1px solid rgba(255,255,255,0.6); border-radius: 12px; padding: 0.75rem; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700; color: #fff; cursor: pointer; box-shadow: 0 4px 15px rgba(60,150,210,0.35), inset 0 1px 0 rgba(255,255,255,0.5); transition: transform 0.1s; }
+    .lock-card button:hover { transform: translateY(-1px); }
+    #lock-error { color: #c0392b; font-size: 0.78rem; min-height: 1rem; font-weight: 500; }
+
+    #app { display: none; position: relative; z-index: 1; }
+    header { background: rgba(255,255,255,0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.6); padding: 1.2rem 2rem; display: flex; align-items: center; gap: 1rem; box-shadow: 0 2px 20px rgba(100,180,230,0.15); }
+    .back-btn { font-family: 'Nunito', sans-serif; font-size: 0.8rem; font-weight: 700; color: #2a8a9a; text-decoration: none; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.7); padding: 0.35rem 0.8rem; border-radius: 20px; transition: transform 0.1s; }
+    .back-btn:hover { transform: translateY(-1px); }
+    header h1 { font-family: 'Nunito', sans-serif; font-size: 1.15rem; font-weight: 800; color: #1a5a7a; }
+    header h1 span { color: #2a9d8f; }
 
     .container { max-width: 780px; margin: 0 auto; padding: 4rem 1.5rem; text-align: center; }
-    .coming { border: 1.5px dashed var(--border); padding: 4rem 2rem; }
-    .coming p { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--ink-light); line-height: 1.8; }
-    .coming .label { font-size: 0.7rem; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.8rem; }
+    .coming {
+      background: rgba(255,255,255,0.38); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(255,255,255,0.75); border-radius: 20px;
+      padding: 4rem 2rem;
+      box-shadow: 0 6px 30px rgba(100,180,230,0.15), inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+    .coming .emoji { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .coming p { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700; color: #2a7a8a; line-height: 1.8; }
+    .coming .sub { font-size: 0.82rem; font-weight: 400; color: #4a8a9a; margin-top: 0.4rem; }
   </style>
 </head>
 <body>
 
+<div class="drops" id="drops"></div>
+
 <div id="lock-screen">
-  <h1>🔒 경제 공부 아카이브</h1>
-  <div class="lock-box">
+  <div class="lock-card">
+    <h1>🔒 경제 공부 아카이브</h1>
     <input type="password" id="pw-input" placeholder="비밀번호" onkeydown="if(event.key==='Enter')checkPw()" />
     <div id="lock-error"></div>
-    <button onclick="checkPw()">입장</button>
+    <button onclick="checkPw()">입장하기</button>
   </div>
 </div>
 
@@ -62,8 +70,9 @@
   </header>
   <div class="container">
     <div class="coming">
-      <p class="label">coming soon</p>
-      <p>아직 준비 중이에요.<br>곧 채워질 예정!</p>
+      <span class="emoji">🌿</span>
+      <p>준비 중이에요</p>
+      <p class="sub">곧 채워질 예정!</p>
     </div>
   </div>
 </div>
@@ -83,6 +92,15 @@
   if (sessionStorage.getItem('auth') === 'ok') {
     document.getElementById('lock-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
+  }
+
+  const drops = document.getElementById('drops');
+  for (let i = 0; i < 18; i++) {
+    const d = document.createElement('div');
+    d.className = 'drop';
+    const size = Math.random() * 28 + 10;
+    d.style.cssText = `width:${size}px;height:${size*1.2}px;left:${Math.random()*100}%;animation-duration:${Math.random()*12+10}s;animation-delay:${Math.random()*10}s;`;
+    drops.appendChild(d);
   }
 </script>
 </body>
