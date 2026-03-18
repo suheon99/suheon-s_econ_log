@@ -3,17 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>수헌의 경제 공부</title>
+  <title>뉴스 읽기 — 수헌의 경제 공부</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg: #f5f0e8;
-      --paper: #fdfaf4;
-      --ink: #1a1a18;
-      --ink-light: #5a5a52;
-      --accent: #c8401a;
-      --border: #d4ccbc;
-    }
+    :root { --bg: #f5f0e8; --paper: #fdfaf4; --ink: #1a1a18; --ink-light: #5a5a52; --accent: #c8401a; --border: #d4ccbc; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--ink); font-family: 'Noto Serif KR', serif; min-height: 100vh; }
 
@@ -39,31 +32,16 @@
     #lock-error { color: var(--accent); font-size: 0.8rem; font-family: 'DM Mono', monospace; min-height: 1rem; }
 
     #app { display: none; }
-    header { border-bottom: 1.5px solid var(--border); padding: 1.5rem 2rem; background: var(--paper); }
-    header h1 { font-size: 1.3rem; font-weight: 700; }
+    header { border-bottom: 1.5px solid var(--border); padding: 1.2rem 2rem; background: var(--paper); display: flex; align-items: center; gap: 1rem; }
+    .back-btn { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--ink-light); text-decoration: none; border: 1px solid var(--border); padding: 0.3rem 0.7rem; border-radius: 2px; }
+    .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+    header h1 { font-size: 1.1rem; font-weight: 700; }
     header h1 span { color: var(--accent); }
-    header p { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--ink-light); margin-top: 0.3rem; }
 
-    .container { max-width: 780px; margin: 0 auto; padding: 3rem 1.5rem; }
-
-    .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-
-    .menu-card {
-      background: var(--paper); border: 1.5px solid var(--border);
-      padding: 2rem 1.8rem; text-decoration: none; color: var(--ink);
-      display: block; transition: border-color 0.15s, transform 0.15s;
-    }
-    .menu-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .menu-card .icon { font-size: 1.8rem; margin-bottom: 1rem; }
-    .menu-card h2 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .menu-card p { font-size: 0.8rem; color: var(--ink-light); line-height: 1.6; font-family: 'DM Mono', monospace; }
-    .menu-card .arrow { display: block; margin-top: 1.2rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--accent); }
-
-    @media (max-width: 500px) {
-      .menu-grid { grid-template-columns: 1fr; }
-      header { padding: 1rem 1.2rem; }
-      .container { padding: 2rem 1rem; }
-    }
+    .container { max-width: 780px; margin: 0 auto; padding: 4rem 1.5rem; text-align: center; }
+    .coming { border: 1.5px dashed var(--border); padding: 4rem 2rem; }
+    .coming p { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--ink-light); line-height: 1.8; }
+    .coming .label { font-size: 0.7rem; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.8rem; }
   </style>
 </head>
 <body>
@@ -79,23 +57,13 @@
 
 <div id="app">
   <header>
-    <h1>수헌의 <span>경제 공부</span></h1>
-    <p>나만의 경제 아카이브</p>
+    <a href="index.html" class="back-btn">← 홈</a>
+    <h1>📄 <span>뉴스 읽기</span></h1>
   </header>
   <div class="container">
-    <div class="menu-grid">
-      <a href="article.html" class="menu-card">
-        <div class="icon">📰</div>
-        <h2>아티클 공부</h2>
-        <p>하루 한 개씩 받는 경제 아티클 읽고 정리</p>
-        <span class="arrow">바로가기 →</span>
-      </a>
-      <a href="news.html" class="menu-card">
-        <div class="icon">📄</div>
-        <h2>뉴스 읽기</h2>
-        <p>경제 뉴스 읽고 정리</p>
-        <span class="arrow">바로가기 →</span>
-      </a>
+    <div class="coming">
+      <p class="label">coming soon</p>
+      <p>아직 준비 중이에요.<br>곧 채워질 예정!</p>
     </div>
   </div>
 </div>
