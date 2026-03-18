@@ -240,7 +240,7 @@
   }
 
   function renderCards() {
-    const entries = getEntries();
+    const entries = getEntries().sort((a, b) => b.date.localeCompare(a.date));
     document.getElementById('count-badge').textContent = entries.length;
     const list = document.getElementById('card-list');
     if (entries.length === 0) {
