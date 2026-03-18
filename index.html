@@ -4,31 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>수헌의 경제 공부</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
+    @font-face {
+      font-family: 'Neuropol';
+      src: url('fonts/neuropol_x_free.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
       font-family: 'Noto Sans KR', sans-serif;
       background: linear-gradient(135deg,
-        #a8d8f0 0%,
-        #c8ecd4 30%,
-        #a0d4f0 55%,
-        #b8e8c8 80%,
-        #90c8e8 100%);
+        #a8d8f0 0%, #c8ecd4 30%, #a0d4f0 55%, #b8e8c8 80%, #90c8e8 100%);
       background-attachment: fixed;
       overflow-x: hidden;
     }
 
-    /* 배경 빛 오브 */
     body::before, body::after {
-      content: '';
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      z-index: 0;
-      pointer-events: none;
+      content: ''; position: fixed; border-radius: 50%;
+      filter: blur(80px); z-index: 0; pointer-events: none;
     }
     body::before {
       width: 500px; height: 500px;
@@ -42,13 +40,10 @@
       bottom: -80px; right: -80px;
       animation: orb2 10s ease-in-out infinite alternate;
     }
-    @keyframes orb1 { from { transform: translate(0,0); } to { transform: translate(60px, 80px); } }
-    @keyframes orb2 { from { transform: translate(0,0); } to { transform: translate(-50px, -60px); } }
+    @keyframes orb1 { from { transform: translate(0,0); } to { transform: translate(60px,80px); } }
+    @keyframes orb2 { from { transform: translate(0,0); } to { transform: translate(-50px,-60px); } }
 
-    /* 물방울 파티클 */
-    .drops {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
-    }
+    .drops { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
     .drop {
       position: absolute;
       border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
@@ -56,135 +51,82 @@
       border: 1px solid rgba(255,255,255,0.5);
       animation: floatDrop linear infinite;
     }
-
     @keyframes floatDrop {
       0% { transform: translateY(110vh) scale(0.8) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 0.6; }
+      10% { opacity: 1; } 90% { opacity: 0.6; }
       100% { transform: translateY(-20vh) scale(1.1) rotate(20deg); opacity: 0; }
     }
 
-    /* 잠금 화면 */
     #lock-screen {
       position: fixed; inset: 0; z-index: 999;
-      display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1.5rem;
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
     }
-
     .lock-card {
-      background: rgba(255,255,255,0.35);
-      backdrop-filter: blur(24px);
+      background: rgba(255,255,255,0.35); backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border: 1.5px solid rgba(255,255,255,0.7);
-      border-radius: 24px;
-      padding: 2.5rem 2.5rem;
-      display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+      border: 1.5px solid rgba(255,255,255,0.7); border-radius: 24px;
+      padding: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
       box-shadow: 0 8px 40px rgba(100,180,230,0.25), inset 0 1px 0 rgba(255,255,255,0.8);
       min-width: 280px;
     }
-
-    .lock-card h1 {
-      font-family: 'Nunito', sans-serif;
-      font-size: 1.3rem; font-weight: 800;
-      color: #1a5a7a;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
-      letter-spacing: -0.01em;
-    }
-
+    .lock-card h1 { font-family: 'Neuropol', sans-serif; font-size: 1.1rem; color: #1a5a7a; letter-spacing: 0.05em; }
     .lock-card input {
-      width: 100%;
-      border: 1.5px solid rgba(255,255,255,0.7);
-      background: rgba(255,255,255,0.5);
-      backdrop-filter: blur(10px);
-      padding: 0.75rem 1rem;
-      font-size: 1rem;
-      font-family: 'Nunito', sans-serif;
-      letter-spacing: 0.2em;
-      text-align: center;
-      border-radius: 12px;
-      outline: none;
-      color: #1a4a6a;
-      box-shadow: inset 0 2px 6px rgba(100,160,200,0.15);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%; border: 1.5px solid rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.5); padding: 0.75rem 1rem;
+      font-size: 1rem; font-family: 'Neuropol', sans-serif;
+      letter-spacing: 0.2em; text-align: center; border-radius: 12px; outline: none; color: #1a4a6a;
+      transition: border-color 0.2s;
     }
-    .lock-card input:focus {
-      border-color: rgba(100,200,240,0.8);
-      box-shadow: 0 0 0 3px rgba(100,200,240,0.2), inset 0 2px 6px rgba(100,160,200,0.15);
-    }
-
+    .lock-card input:focus { border-color: rgba(100,200,240,0.8); }
     .lock-card button {
       width: 100%;
       background: linear-gradient(180deg, rgba(120,210,250,0.9) 0%, rgba(60,160,220,0.9) 100%);
-      border: 1px solid rgba(255,255,255,0.6);
-      border-radius: 12px;
-      padding: 0.75rem;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.95rem; font-weight: 700;
-      color: #fff;
-      cursor: pointer;
-      text-shadow: 0 1px 2px rgba(0,80,130,0.3);
+      border: 1px solid rgba(255,255,255,0.6); border-radius: 12px; padding: 0.75rem;
+      font-family: 'Neuropol', sans-serif; font-size: 0.85rem; color: #fff; cursor: pointer;
       box-shadow: 0 4px 15px rgba(60,150,210,0.35), inset 0 1px 0 rgba(255,255,255,0.5);
-      transition: transform 0.1s, box-shadow 0.1s;
+      letter-spacing: 0.05em; transition: transform 0.1s;
     }
-    .lock-card button:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(60,150,210,0.45), inset 0 1px 0 rgba(255,255,255,0.5); }
-    .lock-card button:active { transform: translateY(0); }
+    .lock-card button:hover { transform: translateY(-1px); }
+    #lock-error { color: #c0392b; font-size: 0.75rem; min-height: 1rem; font-family: 'Neuropol', sans-serif; }
 
-    #lock-error { color: #c0392b; font-size: 0.78rem; min-height: 1rem; font-weight: 500; }
-
-    /* 메인 앱 */
     #app { display: none; position: relative; z-index: 1; }
 
     header {
-      background: rgba(255,255,255,0.3);
-      backdrop-filter: blur(20px);
+      background: rgba(255,255,255,0.3); backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255,255,255,0.6);
       padding: 1.2rem 2rem;
       box-shadow: 0 2px 20px rgba(100,180,230,0.15);
     }
-    header h1 {
-      font-family: 'Nunito', sans-serif;
-      font-size: 1.4rem; font-weight: 800;
-      color: #1a5a7a;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
-    }
+    header h1 { font-family: 'Neuropol', sans-serif; font-size: 1.2rem; color: #1a5a7a; letter-spacing: 0.05em; }
     header h1 span { color: #2a9d8f; }
-    header p { font-size: 0.72rem; color: #4a8a9a; margin-top: 0.2rem; }
+    header p { font-size: 0.72rem; color: #4a8a9a; margin-top: 0.3rem; }
 
     .container { max-width: 780px; margin: 0 auto; padding: 3rem 1.5rem; }
-
     .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
 
     .menu-card {
-      background: rgba(255,255,255,0.38);
-      backdrop-filter: blur(20px);
+      background: rgba(255,255,255,0.38); backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1.5px solid rgba(255,255,255,0.75);
-      border-radius: 20px;
-      padding: 2rem 1.8rem;
-      text-decoration: none; color: #1a4a6a;
-      display: block;
+      border: 1.5px solid rgba(255,255,255,0.75); border-radius: 20px;
+      padding: 2rem 1.8rem; text-decoration: none; color: #1a4a6a; display: block;
       box-shadow: 0 6px 30px rgba(100,180,230,0.18), inset 0 1px 0 rgba(255,255,255,0.8);
-      transition: transform 0.2s, box-shadow 0.2s;
-      position: relative; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden;
     }
     .menu-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 50%;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
       background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
-      border-radius: 20px 20px 0 0;
-      pointer-events: none;
+      border-radius: 20px 20px 0 0; pointer-events: none;
     }
     .menu-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(100,180,230,0.28), inset 0 1px 0 rgba(255,255,255,0.8); }
-
     .menu-card .icon { font-size: 2rem; margin-bottom: 0.9rem; }
-    .menu-card h2 { font-family: 'Nunito', sans-serif; font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; color: #1a5a7a; }
+    .menu-card h2 { font-family: 'Neuropol', sans-serif; font-size: 0.9rem; margin-bottom: 0.5rem; color: #1a5a7a; letter-spacing: 0.04em; }
     .menu-card p { font-size: 0.78rem; color: #4a7a8a; line-height: 1.6; }
     .menu-card .arrow {
-      display: inline-block; margin-top: 1.2rem;
-      font-size: 0.75rem; font-weight: 700; color: #2a9d8f;
-      background: rgba(42,157,143,0.12);
-      padding: 0.25rem 0.7rem; border-radius: 20px;
-      border: 1px solid rgba(42,157,143,0.25);
+      display: inline-block; margin-top: 1.2rem; font-family: 'Neuropol', sans-serif;
+      font-size: 0.7rem; color: #2a9d8f;
+      background: rgba(42,157,143,0.12); padding: 0.25rem 0.7rem; border-radius: 20px;
+      border: 1px solid rgba(42,157,143,0.25); letter-spacing: 0.05em;
     }
 
     @media (max-width: 500px) {
@@ -200,31 +142,31 @@
 
 <div id="lock-screen">
   <div class="lock-card">
-    <h1>🔒 경제 공부 아카이브</h1>
-    <input type="password" id="pw-input" placeholder="비밀번호" onkeydown="if(event.key==='Enter')checkPw()" />
+    <h1>ECON ARCHIVE</h1>
+    <input type="password" id="pw-input" placeholder="password" onkeydown="if(event.key==='Enter')checkPw()" />
     <div id="lock-error"></div>
-    <button onclick="checkPw()">입장하기</button>
+    <button onclick="checkPw()">ENTER</button>
   </div>
 </div>
 
 <div id="app">
   <header>
-    <h1>수헌의 <span>경제 공부</span></h1>
+    <h1>SUHEON'S <span>ECON STUDY</span></h1>
     <p>나만의 경제 아카이브 🌿</p>
   </header>
   <div class="container">
     <div class="menu-grid">
       <a href="article.html" class="menu-card">
         <div class="icon">📰</div>
-        <h2>아티클 공부</h2>
+        <h2>ARTICLE STUDY</h2>
         <p>하루 한 개씩 받는 경제 아티클 읽고 정리</p>
-        <span class="arrow">바로가기 →</span>
+        <span class="arrow">GO →</span>
       </a>
       <a href="news.html" class="menu-card">
         <div class="icon">📄</div>
-        <h2>뉴스 읽기</h2>
+        <h2>NEWS READING</h2>
         <p>경제 뉴스 읽고 정리</p>
-        <span class="arrow">바로가기 →</span>
+        <span class="arrow">GO →</span>
       </a>
     </div>
   </div>
@@ -238,7 +180,7 @@
       document.getElementById('lock-screen').style.display = 'none';
       document.getElementById('app').style.display = 'block';
     } else {
-      document.getElementById('lock-error').textContent = '비밀번호가 틀렸어요';
+      document.getElementById('lock-error').textContent = 'wrong password';
       document.getElementById('pw-input').value = '';
     }
   }
@@ -247,18 +189,12 @@
     document.getElementById('app').style.display = 'block';
   }
 
-  // 물방울 생성
   const drops = document.getElementById('drops');
   for (let i = 0; i < 18; i++) {
     const d = document.createElement('div');
     d.className = 'drop';
     const size = Math.random() * 28 + 10;
-    d.style.cssText = `
-      width: ${size}px; height: ${size * 1.2}px;
-      left: ${Math.random() * 100}%;
-      animation-duration: ${Math.random() * 12 + 10}s;
-      animation-delay: ${Math.random() * 10}s;
-    `;
+    d.style.cssText = `width:${size}px;height:${size*1.2}px;left:${Math.random()*100}%;animation-duration:${Math.random()*12+10}s;animation-delay:${Math.random()*10}s;`;
     drops.appendChild(d);
   }
 </script>
